@@ -10,3 +10,6 @@ lint:
 
 test:
 	uv run pytest
+
+run:
+	docker compose up
