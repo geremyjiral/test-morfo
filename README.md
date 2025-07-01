@@ -89,3 +89,10 @@ Option B is more event-driven and reactive.
 
 
 We can also add a user_id or job_id to track requests by user/session.
+
+
+## Error handling
+
+This project will be used by lambda for small batches, so there isn't error handling and an error will raise directly in lambda
+
+If this project should run with many batches then error handling should be provide to avoid inexpected interuption of the process due to errors.
