@@ -1,0 +1,38 @@
+
+[project]
+name = "test-morfo"
+version = "0.1.0"
+description = "Projet de test pour Morfo"
+readme = "README.md"
+authors = [
+    { name = "Jérémy Giral", email = "jeremygiral48@hotmail.fr" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.39.0",
+    "numpy>=2.3.1",
+    "pandas>=2.3.0",
+    "pillow>=11.2.1",
+    "pyarrow>=20.0.0",
+    "pydantic>=2.11.7",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "pytest>=8.4.1",
+    "flake8>=7.3.0",
+]
+
+[project.scripts]
+test-morfo = "test_morfo:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+addopts = "--maxfail=1"
+
+[tool.black]
+line-length = 88

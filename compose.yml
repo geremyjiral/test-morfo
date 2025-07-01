@@ -1,0 +1,5 @@
+services:
+  image_generator:
+    build: .
+    volumes:
+      - .:/app
