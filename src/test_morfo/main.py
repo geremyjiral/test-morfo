@@ -37,6 +37,7 @@ def main(aws: bool = False):
     )
     for batch in images:
         batch_dir = batch[0][0].parent.parent
+        batch_name = batch_dir.name
         batch_square_dir = batch_dir / "square"
         batch_square_dir.mkdir(parents=True, exist_ok=True)
 
@@ -71,30 +72,29 @@ def main(aws: bool = False):
         logger.info(f"Color statistics for black color: {color_stats}")
 
         # Analyze color statistics for white color
-        white_color_stats = analyze_images_color_stats(
-            batch_dir.name, batch, white_color
-        )
+        white_color_stats = analyze_images_color_stats(batch_name, batch, white_color)
         logger.info(f"Color statistics for white color: {white_color_stats}")
         end_time = time()
         logger.info(
-            f"Batch {batch_dir.name} processed in {end_time - start_time:.2f} seconds."
+            f"Batch {batch_name} processed in {end_time - start_time:.2f} seconds."
         )
 
         efficiency_threshold = 100_000
         start_time = time()
         color_stats = analyze_images_color_stats(
-            batch_dir.name, batch, black_color, efficiency_threshold
+            batch_name, batch, black_color, efficiency_threshold
         )
         logger.info(f"Color statistics for black color: {color_stats}")
 
         # Analyze color statistics for white color
         white_color_stats = analyze_images_color_stats(
-            batch_dir.name, batch, white_color, efficiency_threshold
+            batch_name, batch, white_color, efficiency_threshold
         )
         logger.info(f"Color statistics for white color: {white_color_stats}")
         end_time = time()
+        total_time = end_time - start_time
         logger.info(
-            f"Batch {batch_dir.name} processed in {end_time - start_time:.2f} seconds with efficiency."
+            f"Batch {batch_name} processed in {total_time:.2f} seconds with efficiency."
         )
         batches_stats = pd.concat(
             [
@@ -102,7 +102,7 @@ def main(aws: bool = False):
                 pd.DataFrame(
                     [
                         [
-                            batch_dir.name,
+                            batch_name,
                             white_color_stats.avg,
                             white_color_stats.std,
                             white_color_stats.min,
